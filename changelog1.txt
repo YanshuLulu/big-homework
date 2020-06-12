@@ -1,0 +1,61 @@
+1.新增加Bullet类：
+继承QObject，目的是实现攻击的动画。Bullet在monster进入tower的攻击范围时产生，位置由tower到monster，击中monster后消失，对monster造成伤害。
+
+2.Tower类：
+不再继承RPGObj，原来从RPGObj继承来的成员_pos和函数setPosX，setPosY，getPosX,getPosY，getPos写入tower.h中，改为继承QObject。
+新增成员有：
+QPixmap _pixmap（素材图片），
+QTimer* _rateTimer（tower攻击的计时器），
+Monster* _chooseMonster（tower的攻击对象），
+World* _world;
+新增函数有：
+==重载（为使用find函数），
+int getDamage（返回tower的伤害），
+int getRate（返回tower的攻击速度），
+void checkMonsterIn（检查是否有monster进入攻击范围），
+void attackMonster（开始_rateTimer），
+void chooseMonter(Monster*m)（将*m视为攻击对象），
+void targetKilled（攻击对象被杀死后_chooseMonster改为NULL并暂停_rateTimer），
+void loseTarget（与targetKilled同功能），
+bool meet（判断两点间距是否在限定范围内），
+槽函数void weapon（产生bullet）
+show函数中改动使tower进入攻击状态后攻击范围圈变红。
+
+3.Monster类：
+double currentHP放入public中。
+新增成员：
+bool _active（monster是否能移动），
+vector<Tower *> _attackers（正在攻击该monster的towers）
+新增函数：
+==重载（为使用find函数），
+void doActive（使monster状态为能移动），
+void getAttacked(Tower* t)（将*t添加进攻击者列表中），
+void lostSight(Tower* t)（将*t移出攻击者列表），
+void getDamage(int damage)（使currentHP减少damage）。
+show函数改动使得monster满血时血条为绿色，受到伤害后血条变红）
+
+4.World类：
+将关于player和fruit的东西都删除了，_towers、_monster改为public里的静态常量。
+新增成员：
+static vector<Bullet *> _bullets（子弹），
+static bool lose（游戏是否失败），
+static bool win（游戏是否胜利），
+int _HP（城堡血量）。
+新增函数：
+void addBullet(Bullet* b)（增加*b进_bullets中），
+void monsterDied(Monster* m)（将*m移除其攻击者的_chooseMonster并erase掉m），
+void monsterDamaged(Monster* m,int damage)（使*m受到伤害并在*m血量为0时执行monsterDied），
+void eraseBullet(Bullet* b)（将*b清除并从_bullets中移除），
+void baseDamage(int damage=1)（当有monster到达城堡时城堡血量-1），
+void gameOver（当城堡血量为0时lose变为true），
+initWorld中删去BGM的播放。
+
+5.MW1类：
+删除了showTower函数。monsterWaves改名为_waves。
+新增成员：
+QMediaPlayer *player（播放BGM）
+新增槽函数：
+void loadWave（加载monster波数），
+void updateMap()（进行tower的checkMonsterIn并更新），
+paintEvent中新增当_game.lose或_game.win为true时显示相应界面的情况，
+构造函数里增加BGM的播放。
