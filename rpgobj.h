@@ -3,6 +3,7 @@
 #include <QMediaPlayer>
 #include <QImage>
 #include <QPainter>
+#include <QObject>
 #include <string>
 #include <icon.h>
 #include <map>
@@ -11,10 +12,10 @@ class RPGObj
 {
 public:
     RPGObj(){}
+    ~RPGObj(){}
 
     void initObj(string type);
     void show(QPainter * painter);
-    void move(int direction, int steps=1);
 
     void setPosX(int x){this->_pos.setX(x);}
     void setPosY(int y){this->_pos.setY(y);}
@@ -26,11 +27,6 @@ public:
     int getWidth() const{return this->_icon.getWidth();}
 
     bool canCover() const{return this->_coverable;}
-
-    int getNextX(int direction);
-    int getNextY(int direction);
-
-    virtual void onErase();
 
     string getObjType() const{return this->_icon.getTypeName();}//返回类名
 

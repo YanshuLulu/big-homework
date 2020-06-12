@@ -17,9 +17,9 @@ void RPGObj::initObj(string type)
     else if (type.compare("towerpos")==0){
         this->_coverable = true;
     }
-    else if (type.compare("tower")==0){
+    /*else if (type.compare("tower")==0){
         this->_coverable = false;
-    }
+    }*/
     else{
         //TODO 应由专门的错误日志文件记录
         cout<<"invalid ICON type."<<endl;
@@ -38,7 +38,7 @@ void RPGObj::show(QPainter * pa){
     pa->drawImage(this->_pos.x()*gSize,this->_pos.y()*gSize,this->_pic);
 }
 
-int RPGObj::getNextX(int direction){
+/*int RPGObj::getNextX(int direction){
     switch (direction){
         case 1:
            return this->_pos.x();
@@ -62,11 +62,4 @@ int RPGObj::getNextY(int direction){
         case 4:
            return this->_pos.y();
     }
-}
-
-void RPGObj::onErase(){
-    QMediaPlayer * player = new QMediaPlayer;
-    player->setMedia(QUrl("qrc:/sounds/2953.mp3"));
-    player->setVolume(30);
-    player->play();
-}
+}*/

@@ -4,8 +4,8 @@
 #include <QMainWindow>
 #include <QImage>
 #include <QPainter>
-#include<QKeyEvent>
-#include<QTimer>
+#include <QKeyEvent>
+#include <QTimer>
 #include "rpgobj.h"
 #include "world.h"
 #include "waypoint.h"
@@ -22,18 +22,21 @@ public:
     explicit MW1(QWidget *parent = 0);
     ~MW1();
     void paintEvent(QPaintEvent *e);
-    void showTower();
     //void keyPressEvent(QKeyEvent *);
     void mousePressEvent(QMouseEvent *e);
-
+    //bool event(QEvent *e);
 protected slots:
+    void loadWave();
     void monsterMove();
-    void drawMonster();
+    void updateMap();
+    void drawMonster(){_game.addMonsters();this->repaint();}
+
 private:
     Ui::MW1 *ui;
     World _game;
     QTimer *timer1,*timer2;
-    int monsterWaves=0;
+    QMediaPlayer *player;
+    int _waves=0;
 };
 
 #endif // MW1_H

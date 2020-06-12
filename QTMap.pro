@@ -28,27 +28,25 @@ SOURCES += main.cpp\
     mw1.cpp \
     icon.cpp \
     rpgobj.cpp \
-    player.cpp \
     world.cpp \
-    fruit.cpp \
     monster.cpp \
     end.cpp \
     waypoint.cpp \
     towerpos.cpp \
-    tower.cpp
+    tower.cpp \
+    bullet.cpp
 
 HEADERS  += \
     mw1.h \
     icon.h \
     rpgobj.h \
     world.h \
-    fruit.h \
-    player.h \
-    monster.h \
     end.h \
     waypoint.h \
     towerpos.h \
-    tower.h
+    bullet.h \
+    tower.h \
+    monster.h
 
 FORMS    += \
     mw1.ui

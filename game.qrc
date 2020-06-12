@@ -3,10 +3,17 @@
         <file>TileB.png</file>
         <file>background.png</file>
         <file>Tile.png</file>
+        <file>bullet.png</file>
+        <file>tower.png</file>
+        <file>win.png</file>
+        <file>lose.png</file>
     </qresource>
     <qresource prefix="/sounds">
         <file>2953.mp3</file>
         <file>hdl.mp3</file>
         <file>crash.mp3</file>
+        <file>listen to the wind.mp3</file>
+        <file>lose.mp3</file>
+        <file>win.m4a</file>
     </qresource>
 </RCC>
