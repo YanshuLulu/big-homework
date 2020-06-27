@@ -1,0 +1,40 @@
+1.Boss类（新增）：
+直接继承monster，除了素材其他没啥不同。
+
+2.Bullet类（修改）：
+槽函数hitTarget里增加了攻击Boss的情况，对Boss的伤害是对普通Monster的1/4。
+
+3.Button类（新增）：
+继承QPushButton，目的就是为了方便在其他cpp文件中使用QPushButton
+
+4.ICON类（修改）：
+pairArray里新增“boss”
+
+5.Tower0类（新增）：
+直接把Tower搬过来，不同之处为私有数据中的int _damage和int _rate，减小两者的值使得Tower0表现为持续伤害效果；show函数修改，使在有monster进入攻击范围的情况下，在tower0和monster直接画一条线表示正在用激光攻击；weapon函数直接将bullet里的hitTarget函数攻击功能搬过来。
+
+6.World类（修改）：
+int _HP从private移到了public；
+新增static const int towerCost和static const int tower0Cost分别为建造一座Tower和Tower0所花费的金币数；
+static int _gold为目前所拥有的金币数；
+static vector<Tower0 *> _tower0用于储存Tower0；
+新增函数void addtower0(Tower0* t)类比于addtower功能；
+void addBoss()类比于addMonster功能；
+void award(int gold)使_gold增加gold；
+initWorld里改变了towerpos的位置并新增了几个towerpos；
+show里增加对_tower0的paint；
+MonsterMove里当monster到达终点时新增boss情况，_HP-2；
+monsterDamaged中新增boss死亡的情况，award（300）。
+
+7.MW1类（修改）：
+新增私有数据bool tower0和bool tower，判断是否能够放塔；
+新增槽函数：drawBoss（和drawMonster同理）；towerClick和tower0Clicked（将bool tower和bool tower0修改为与当前状态相反的值）；updateMap里新增_tower0的更新；loadWave里更改不同波数时生成boss的个数；
+新增public函数bool canBuyTower()const和bool canBuyTower0()const，判断当前的_gold是否够购买tower或tower0；
+MW1构造函数中增加tower、tower0和退出游戏的Button；
+mousePressEvent里增加tower0的放置；
+paintEvent里增加三个drawText分别画出HP、金币数和波数。
+
+8.SW类（新增）：
+三个私有成员QPixmap _backGround（游戏初始界面背景）、QPixmap _startButton（开始游戏按钮图标）、QPixmap _quitButton（结束游戏按钮图标）；
+一个public函数paintEvent：绘制初始界面背景；
+构造函数中初始化三个私有成员，创建两个Button，分别用于使游戏开始和结束。
